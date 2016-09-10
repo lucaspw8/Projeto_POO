@@ -6,7 +6,7 @@
 package DAO;
 
 import JDBC.Conectar;
-import JavaBeans.Administrador;
+import JavaBeans.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,31 +15,32 @@ import java.sql.SQLException;
  *
  * @author Lucas
  */
-public class AdministradorDAO {
+public class ProdutoDAO {
+    
     private final Connection conecta;
-    //construtor
-    public AdministradorDAO(){
+    
+    public ProdutoDAO(){
         this.conecta = new Conectar().conecta();
     }
     
-    //Cadastrar ADM
-    public void CadastrarADM(Administrador adm){
+    //Cadastra os produtos
+    public  void CadastraProduto(Produto prod){
         try {
-            // 1º passo Criar a SQL
-            String comando = "insert into administrador (login,senha) values(?,?)";
-            //2º passo organizar o comando e executa-lo
-            PreparedStatement stmt = conecta.prepareStatement(comando);
+            //1º Passo Criar a SQL com o comando
+            String comando = "insert into produto (nome,preco) values(?,?)";
             
-            stmt.setString(1, adm.getLogin());
-            stmt.setString(2,adm.getSenha());
+            //2º passo organizar o comando e executa-lo
+            PreparedStatement stmt = conecta.prepareCall(comando);
+            stmt.setString(1,prod.getNome());
+            stmt.setFloat(2, prod.getPreco());
             
             //3º Executa comando 
             stmt.execute();
             //4º Fecha conexao
             stmt.close();
             
-        } catch(SQLException erro){
-            throw new RuntimeException(erro);
+        } catch (SQLException erro) {
+                throw new RuntimeException(erro);
         }
     }
 }

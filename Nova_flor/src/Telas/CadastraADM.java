@@ -161,9 +161,15 @@ public class CadastraADM extends javax.swing.JFrame {
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         //Botão Cadastrar ADM
         
+        //Verifica se algum campo esta vazio !
+        if(!txt_login.getText().isEmpty() && !txt_senha.getText().isEmpty()){
+        
         try {
             //1º Guardar os dados do formulario em um obj Adm
             Administrador adm = new Administrador();
+            
+            
+            
             adm.setLogin(txt_login.getText());
             adm.setSenha(txt_senha.getText());
             String senhaConfirma = txt_senhaConfirmar.getText();
@@ -173,7 +179,7 @@ public class CadastraADM extends javax.swing.JFrame {
                 AdministradorDAO dao = new AdministradorDAO();
                 dao.CadastrarADM(adm);
                 
-                JOptionPane.showMessageDialog(null,"Cadastro Realizado Com Sucesso");
+                 JOptionPane.showMessageDialog(null,"Cadastro Realizado Com Sucesso");
             }
             else{
                 JOptionPane.showMessageDialog(null,"A Senhas não são iguais !");
@@ -182,10 +188,14 @@ public class CadastraADM extends javax.swing.JFrame {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null,"Erro Ao Cadastrar ! " +erro);
         }
-       
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"Algum Campo está vazio Tente de novo ! ");
+        }
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        System.exit(0);
         
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
