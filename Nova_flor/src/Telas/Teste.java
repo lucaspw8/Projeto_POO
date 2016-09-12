@@ -22,7 +22,7 @@ public class Teste {
             Connection con = new Conectar().conecta();
             JOptionPane.showMessageDialog(null,"Conectado");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro ao conectar" +e);
+            JOptionPane.showMessageDialog(null, e);
         }
         
     }

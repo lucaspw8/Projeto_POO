@@ -21,7 +21,7 @@ public class Conectar {
             
            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3309/flor","root","123");
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao Conectar /n" +e);
+            throw new RuntimeException("Erro ao Conectar " +e);
         }
     }
     

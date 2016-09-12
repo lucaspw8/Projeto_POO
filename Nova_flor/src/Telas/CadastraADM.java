@@ -162,7 +162,7 @@ public class CadastraADM extends javax.swing.JFrame {
         //Botão Cadastrar ADM
         
         //Verifica se algum campo esta vazio !
-        if(!txt_login.getText().isEmpty() && !txt_senha.getText().isEmpty()){
+        if(!txt_login.getText().isEmpty() || !txt_senha.getText().isEmpty()){
         
         try {
             //1º Guardar os dados do formulario em um obj Adm
