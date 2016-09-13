@@ -9,6 +9,7 @@ import JDBC.Conectar;
 import JavaBeans.Administrador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -41,5 +42,38 @@ public class AdministradorDAO {
         } catch(SQLException erro){
             throw new RuntimeException(erro);
         }
+    }
+    
+    
+    //Metodo Login
+    public boolean efetuarLogin(String login, String senha){
+        
+        try {
+            //Criar comando SQL
+            String sql = "select cod_adm from administrador WHERE login = ? and senha = ?";
+            
+            //2º passo organizar a sql e executa-la
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+            
+            
+            //Executar comando
+            ResultSet rs = stmt.executeQuery();
+            
+            //Verificar se foi encontrado um registro
+            if(rs.first()){
+                //Faz Login
+                return true;
+            }
+            
+                
+            
+        } catch (SQLException erro) {
+            
+            throw new RuntimeException("Erro ao logar " +erro);
+        }
+           return false;
     }
 }
