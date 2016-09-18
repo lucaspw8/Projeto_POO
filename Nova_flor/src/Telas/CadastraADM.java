@@ -44,6 +44,11 @@ public class CadastraADM extends javax.swing.JFrame {
         btn_cadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -198,6 +203,12 @@ public class CadastraADM extends javax.swing.JFrame {
         System.exit(0);
         
     }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+      Administrador adm = new Administrador();
+      txt_login.setText(adm.getLogin());
+      txt_senha.setText(adm.getSenha());
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package Telas;
+
+import DAO.ClienteDAO;
 import DAO.ProdutoDAO;
-import JavaBeans.Produto;
+import JavaBeans.ClienteDados;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,30 +16,29 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Lucas
  */
-public class Produto_T extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Produto_T
-     */
+public class Cliente extends javax.swing.JFrame {
     public int cod;
+    
     //Metodo Listar
      public void Listar(){
         try {
             //1º Executar o Select
-            ProdutoDAO dao = new ProdutoDAO();
+            ClienteDAO dao = new ClienteDAO();
             
-            List<Produto> listaProd = dao.ListarProdutos();
+            List<ClienteDados> listaCli = dao.ListarClientes();
             
             //2ºColocar os dados na tabela
             
-            DefaultTableModel modelo = (DefaultTableModel)Tabela_Prod.getModel();
+            DefaultTableModel modelo = (DefaultTableModel)Tabela_Cliente.getModel();
             modelo.setNumRows(0);
             
-            for(Produto prod : listaProd){
+            for(ClienteDados cli : listaCli){
                 modelo.addRow(new Object[]{
-                    prod.getCod_prod(),
-                    prod.getNome(),
-                    prod.getPreco()
+                    cli.getId_cliente(),
+                    cli.getNome(),
+                    cli.getEndereco(),
+                    cli.getTelefone(),
+                    cli.getEmail()
                     });
             }
             
@@ -46,7 +47,11 @@ public class Produto_T extends javax.swing.JFrame {
         }
     }
     
-    public Produto_T() {
+    
+    /**
+     * Creates new form Cliente
+     */
+    public Cliente() {
         initComponents();
     }
 
@@ -64,47 +69,49 @@ public class Produto_T extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txt_Nome_prod = new javax.swing.JTextField();
-        txt_preco_prod = new javax.swing.JTextField();
-        btn_cadastrar_prod = new javax.swing.JButton();
+        txt_Nome_cli = new javax.swing.JTextField();
+        txt_Endereco_cli = new javax.swing.JTextField();
+        btn_cadastrar_cli = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btn_limpar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txt_Telefone_cli = new javax.swing.JTextField();
+        txt_Email_cli = new javax.swing.JTextField();
         Painel_Editar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela_Prod = new javax.swing.JTable();
+        Tabela_Cliente = new javax.swing.JTable();
         btn_Excluir = new javax.swing.JButton();
         btn_Editar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
         });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Produtos");
+        jLabel1.setText("Clientes");
 
         Painel_Cadastro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Cadastrar Produto");
+        jLabel2.setText("Cadastrar Cliente");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel3.setText("Nome");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel4.setText("Preço");
+        jLabel4.setText("Endereço");
 
-        btn_cadastrar_prod.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_cadastrar_prod.setText("Cadastrar");
-        btn_cadastrar_prod.addActionListener(new java.awt.event.ActionListener() {
+        btn_cadastrar_cli.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_cadastrar_cli.setText("Cadastrar");
+        btn_cadastrar_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadastrar_prodActionPerformed(evt);
+                btn_cadastrar_cliActionPerformed(evt);
             }
         });
 
@@ -123,6 +130,18 @@ public class Produto_T extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel6.setText("Telefone");
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel7.setText("Email");
+
+        txt_Telefone_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_Telefone_cliActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Painel_CadastroLayout = new javax.swing.GroupLayout(Painel_Cadastro);
         Painel_Cadastro.setLayout(Painel_CadastroLayout);
         Painel_CadastroLayout.setHorizontalGroup(
@@ -132,31 +151,33 @@ public class Produto_T extends javax.swing.JFrame {
                     .addGroup(Painel_CadastroLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Painel_CadastroLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_Nome_prod))
-                            .addGroup(Painel_CadastroLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(Painel_CadastroLayout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btn_cadastrar_prod))
-                                    .addComponent(txt_preco_prod)))))
-                    .addGroup(Painel_CadastroLayout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(jLabel2)
-                        .addGap(0, 109, Short.MAX_VALUE))
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                                .addComponent(btn_cadastrar_cli))
+                            .addComponent(txt_Endereco_cli)
+                            .addComponent(txt_Nome_cli)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_CadastroLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_limpar)))
+                        .addComponent(btn_limpar))
+                    .addGroup(Painel_CadastroLayout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel2))
+                    .addGroup(Painel_CadastroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(14, 14, 14)
+                        .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_Telefone_cli)
+                            .addComponent(txt_Email_cli))))
                 .addContainerGap())
         );
-
-        Painel_CadastroLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_cadastrar_prod, jButton2});
-
         Painel_CadastroLayout.setVerticalGroup(
             Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Painel_CadastroLayout.createSequentialGroup()
@@ -167,35 +188,57 @@ public class Produto_T extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_Nome_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_Nome_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txt_preco_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_Endereco_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_cadastrar_prod)
+                    .addComponent(jLabel6)
+                    .addComponent(txt_Telefone_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txt_Email_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cadastrar_cli)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Painel_Editar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        Tabela_Prod.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Tabela_Prod.setModel(new javax.swing.table.DefaultTableModel(
+        Tabela_Cliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Tabela_Cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "Preço"
+                "Código", "Nome", "Endereço", "Telefone", "Email"
             }
-        ));
-        Tabela_Prod.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabela_ProdMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(Tabela_Prod);
+        Tabela_Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabela_ClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Tabela_Cliente);
+        if (Tabela_Cliente.getColumnModel().getColumnCount() > 0) {
+            Tabela_Cliente.getColumnModel().getColumn(0).setPreferredWidth(15);
+            Tabela_Cliente.getColumnModel().getColumn(3).setPreferredWidth(40);
+            Tabela_Cliente.getColumnModel().getColumn(4).setPreferredWidth(180);
+            Tabela_Cliente.getColumnModel().getColumn(4).setMaxWidth(300);
+        }
 
         btn_Excluir.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btn_Excluir.setText("Excluir");
@@ -213,20 +256,26 @@ public class Produto_T extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Listagem de Clientes");
+
         javax.swing.GroupLayout Painel_EditarLayout = new javax.swing.GroupLayout(Painel_Editar);
         Painel_Editar.setLayout(Painel_EditarLayout);
         Painel_EditarLayout.setHorizontalGroup(
             Painel_EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Painel_EditarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(Painel_EditarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_EditarLayout.createSequentialGroup()
                 .addGap(170, 170, 170)
                 .addComponent(btn_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(btn_Editar)
-                .addGap(121, 121, 121))
+                .addGap(109, 109, 109))
+            .addGroup(Painel_EditarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Painel_EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         Painel_EditarLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_Editar, btn_Excluir});
@@ -235,12 +284,14 @@ public class Produto_T extends javax.swing.JFrame {
             Painel_EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Painel_EditarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Editar))
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addGap(92, 92, 92))
         );
 
         Painel_EditarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_Editar, btn_Excluir});
@@ -274,22 +325,24 @@ public class Produto_T extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cadastrar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrar_prodActionPerformed
+    private void btn_cadastrar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrar_cliActionPerformed
 
         //Botão Cadastrar Produto
 
         //Verifica se algum campo esta vazio !
-        if(!txt_Nome_prod.getText().isEmpty() || !txt_preco_prod.getText().isEmpty()){
+        if(!txt_Nome_cli.getText().isEmpty()){
             try {
                 //1º Guardar os dados do formulario em um obj Produto
 
-                Produto prod = new Produto();
-                prod.setNome(txt_Nome_prod.getText());
-                prod.setPreco(Float.parseFloat(txt_preco_prod.getText()));
+                ClienteDados cli= new ClienteDados();
+                cli.setNome(txt_Nome_cli.getText());
+                cli.setTelefone(txt_Telefone_cli.getText());
+                cli.setEndereco(txt_Endereco_cli.getText());
+                cli.setEmail(txt_Email_cli.getText());
 
                 //2º passo Criar um prod do tipo DAO
-                ProdutoDAO dao = new ProdutoDAO();
-                dao.CadastraProduto(prod);
+                ClienteDAO dao = new ClienteDAO();
+                dao.CadastrarCliente(cli);
 
                 JOptionPane.showMessageDialog(null,"Cadastro Realizado Com Sucesso");
 
@@ -298,48 +351,73 @@ public class Produto_T extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"Algum Campo está vazio Tente de novo ! ");
+            JOptionPane.showMessageDialog(null,"O Campo Nome está vazio Tente de novo ! ");
         }
-    }//GEN-LAST:event_btn_cadastrar_prodActionPerformed
+    }//GEN-LAST:event_btn_cadastrar_cliActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void btn_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limparActionPerformed
+        // Limpar todos os campos
+        txt_Nome_cli.setText(null);
+        txt_Endereco_cli.setText(null);
+        txt_Telefone_cli.setText(null);
+        txt_Email_cli.setText(null);
+    }//GEN-LAST:event_btn_limparActionPerformed
 
+    private void Tabela_ClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_ClienteMouseClicked
+        // Pegando dados
+        cod = Integer.parseInt(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 0).toString());
+
+        txt_Nome_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 1).toString());
+        txt_Endereco_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 2).toString());
+        txt_Telefone_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 3).toString());
+        txt_Email_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 4).toString());
+    }//GEN-LAST:event_Tabela_ClienteMouseClicked
+
+    private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
+        // Botão Excluir:
+        int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Cliente ?");
         
-    }//GEN-LAST:event_formWindowOpened
+       if(resposta == JOptionPane.YES_OPTION){
+       try {
+            //1º Guardar os dados do formulario em um obj Produto
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Listar();
-    }//GEN-LAST:event_formWindowActivated
+            ClienteDados cli= new ClienteDados();
+            cli.setId_cliente(cod);
 
-    private void Tabela_ProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_ProdMouseClicked
-        // Pegando dados 
-        cod = Integer.parseInt(Tabela_Prod.getValueAt(Tabela_Prod.getSelectedRow(), 0).toString());
-        
-        txt_Nome_prod.setText(Tabela_Prod.getValueAt(Tabela_Prod.getSelectedRow(), 1).toString());
-        txt_preco_prod.setText(Tabela_Prod.getValueAt(Tabela_Prod.getSelectedRow(), 2).toString());
-    }//GEN-LAST:event_Tabela_ProdMouseClicked
+            //2º passo Criar um prod do tipo DAO
+            ClienteDAO dao = new ClienteDAO();
+            dao.ExcluirCliente(cli);
+
+            JOptionPane.showMessageDialog(null,"Excluido Com Sucesso");
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null,"Erro Ao Excluir ! " +erro);
+        }
+        }
+    }//GEN-LAST:event_btn_ExcluirActionPerformed
 
     private void btn_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarActionPerformed
         // Botão Editar:
         
-
-   //Verifica se algum campo esta vazio !
-        if(!txt_Nome_prod.getText().isEmpty() || !txt_preco_prod.getText().isEmpty()){
+        //Verifica se algum campo esta vazio !
+        if(!txt_Nome_cli.getText().isEmpty()){
             try {
                 //1º Guardar os dados do formulario em um obj Produto
 
-                Produto prod = new Produto();
-                prod.setCod_prod(cod);
-                prod.setNome(txt_Nome_prod.getText());
-                prod.setPreco(Float.parseFloat(txt_preco_prod.getText()));
+                ClienteDados cli = new ClienteDados();
+                cli.setId_cliente(cod);
+                cli.setNome(txt_Nome_cli.getText());
+                cli.setEndereco(txt_Endereco_cli.getText());
+                cli.setEmail(txt_Email_cli.getText());
+                cli.setTelefone(txt_Telefone_cli.getText());
 
                 //2º passo Criar um prod do tipo DAO
-                ProdutoDAO dao = new ProdutoDAO();
-                dao.AlterarProduto(prod);
+                ClienteDAO dao = new ClienteDAO();
+                dao.EditarCliente(cli);
 
                 JOptionPane.showMessageDialog(null,"Alterado Com Sucesso");
 
@@ -348,40 +426,17 @@ public class Produto_T extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"Algum Campo está vazio Tente de novo ! ");
+            JOptionPane.showMessageDialog(null,"O Nome está vazio Tente de novo ! ");
         }
     }//GEN-LAST:event_btn_EditarActionPerformed
 
-    private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
-        // Botão Excluir:
-        
-        int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Produto ?");
-        
-       if(resposta == JOptionPane.YES_OPTION){
-        try {
-                //1º Guardar os dados do formulario em um obj Produto
+    private void txt_Telefone_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Telefone_cliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_Telefone_cliActionPerformed
 
-                Produto prod = new Produto();
-                prod.setCod_prod(cod);
-                
-
-                //2º passo Criar um prod do tipo DAO
-                ProdutoDAO dao = new ProdutoDAO();
-                dao.ExcluirProduto(prod);
-
-                JOptionPane.showMessageDialog(null,"Excluido Com Sucesso");
-
-            } catch (Exception erro) {
-                JOptionPane.showMessageDialog(null,"Erro Ao Excluir ! " +erro);
-            }
-       }
-    }//GEN-LAST:event_btn_ExcluirActionPerformed
-
-    private void btn_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limparActionPerformed
-        // Limpar todos os campos
-        txt_Nome_prod.setText(null);
-        txt_preco_prod.setText(null);
-    }//GEN-LAST:event_btn_limparActionPerformed
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Listar();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -400,20 +455,20 @@ public class Produto_T extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Produto_T.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Produto_T.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Produto_T.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Produto_T.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Produto_T().setVisible(true);
+                new Cliente().setVisible(true);
             }
         });
     }
@@ -421,18 +476,23 @@ public class Produto_T extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel_Cadastro;
     private javax.swing.JPanel Painel_Editar;
-    private javax.swing.JTable Tabela_Prod;
+    private javax.swing.JTable Tabela_Cliente;
     private javax.swing.JButton btn_Editar;
     private javax.swing.JButton btn_Excluir;
-    private javax.swing.JButton btn_cadastrar_prod;
+    private javax.swing.JButton btn_cadastrar_cli;
     private javax.swing.JButton btn_limpar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txt_Nome_prod;
-    private javax.swing.JTextField txt_preco_prod;
+    private javax.swing.JTextField txt_Email_cli;
+    private javax.swing.JTextField txt_Endereco_cli;
+    private javax.swing.JTextField txt_Nome_cli;
+    private javax.swing.JTextField txt_Telefone_cli;
     // End of variables declaration//GEN-END:variables
 }

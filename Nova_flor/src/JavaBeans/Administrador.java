@@ -11,8 +11,8 @@ package JavaBeans;
  */
 public class Administrador {
     private int Cod_adm;
-    private String Login;
-    private String Senha;
+    private static String Login;
+    private static String Senha;
 
     public int getCod_adm() {
         return Cod_adm;
