@@ -109,7 +109,7 @@ public class ClienteDAO {
     public  void ExcluirCliente(ClienteDados cli){
         try {
             //1º Passo Criar a SQL com o comando
-            String comando = "delete from cliente where cod_produto = ?";
+            String comando = "delete from cliente where cod_cliente = ?";
             
             //2º passo organizar o comando e executa-lo
             PreparedStatement stmt = conecta.prepareCall(comando);
@@ -123,6 +123,7 @@ public class ClienteDAO {
             
         } catch (SQLException erro) {
                 throw new RuntimeException(erro);
+                
         }
     }
     

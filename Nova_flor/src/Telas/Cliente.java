@@ -84,8 +84,10 @@ public class Cliente extends javax.swing.JFrame {
         btn_Excluir = new javax.swing.JButton();
         btn_Editar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        menu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cliente");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -296,6 +298,14 @@ public class Cliente extends javax.swing.JFrame {
 
         Painel_EditarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_Editar, btn_Excluir});
 
+        menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        menu.setText("Menu");
+        menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -303,7 +313,10 @@ public class Cliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(menu)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Painel_Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,7 +327,11 @@ public class Cliente extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(menu)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Painel_Cadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -438,6 +455,13 @@ public class Cliente extends javax.swing.JFrame {
         Listar();
     }//GEN-LAST:event_formWindowActivated
 
+    private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
+        // TODO add your handling code here:
+        Menu e = new Menu();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -490,6 +514,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel menu;
     private javax.swing.JTextField txt_Email_cli;
     private javax.swing.JTextField txt_Endereco_cli;
     private javax.swing.JTextField txt_Nome_cli;

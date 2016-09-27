@@ -43,7 +43,7 @@ public class CadastraADM extends javax.swing.JFrame {
         btn_cancelar = new javax.swing.JButton();
         btn_cadastrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Administrador");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -99,13 +99,11 @@ public class CadastraADM extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addComponent(btn_cadastrar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_senhaConfirmar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_senhaConfirmar, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txt_login)
-                            .addComponent(txt_senha))))
+                            .addComponent(txt_senha, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(172, 172, 172))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()

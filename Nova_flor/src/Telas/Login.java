@@ -58,10 +58,16 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btn_Login = new javax.swing.JButton();
         txt_Senha = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
+        lbl_cadastrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login do Usuario");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         Login_1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Login_1.setToolTipText("");
@@ -119,10 +125,10 @@ public class Login extends javax.swing.JFrame {
 
         Login_1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txt_Login, txt_Senha});
 
-        jLabel3.setText("Cadastrar");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbl_cadastrar.setText("Cadastrar");
+        lbl_cadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                lbl_cadastrarMouseClicked(evt);
             }
         });
 
@@ -133,7 +139,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(172, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
+                    .addComponent(lbl_cadastrar)
                     .addComponent(Login_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(159, 159, 159))
         );
@@ -143,7 +149,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(106, 106, 106)
                 .addComponent(Login_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(lbl_cadastrar)
                 .addContainerGap(83, Short.MAX_VALUE))
         );
 
@@ -163,10 +169,10 @@ public class Login extends javax.swing.JFrame {
            
             if(adm.efetuarLogin(login, senha)){
                 //Abre a proxima tela
-                Produto_T  prod =new Produto_T();
+                Menu d = new Menu();
                 
                 JOptionPane.showMessageDialog(null, "Login feito com Sucesso");
-                prod.setVisible(true);
+                d.setVisible(true);
                 this.dispose();
             }
             else{
@@ -175,18 +181,30 @@ public class Login extends javax.swing.JFrame {
             
             
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Dados Incorretos"+e);
         }
 
     }//GEN-LAST:event_btn_LoginActionPerformed
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void lbl_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_cadastrarMouseClicked
        CadastraADM adm = new CadastraADM();
        Administrador admin = new Administrador();
       
        admin.setLogin(txt_Login.getText());  
        admin.setSenha(txt_Senha.getText());
        adm.setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_lbl_cadastrarMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       AdministradorDAO dao = new AdministradorDAO();
+        
+       if(dao.listaAdm()){
+           lbl_cadastrar.setVisible(false);
+       }
+       else{
+           lbl_cadastrar.setVisible(true);
+       }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -229,7 +247,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btn_Login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lbl_cadastrar;
     private javax.swing.JTextField txt_Login;
     private javax.swing.JPasswordField txt_Senha;
     // End of variables declaration//GEN-END:variables

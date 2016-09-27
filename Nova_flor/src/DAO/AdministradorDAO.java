@@ -72,8 +72,31 @@ public class AdministradorDAO {
             
         } catch (SQLException erro) {
             
-            throw new RuntimeException("Erro ao logar " +erro);
+            throw new RuntimeException("Erro ao logar " +erro.getMessage());
         }
            return false;
+    }
+    
+    public boolean listaAdm(){
+        try {
+            //Criar comando SQL
+            String sql = "select * from administrador";
+            
+            //2º passo organizar a sql e executa-la
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            
+            //Executar comando
+            ResultSet rs = stmt.executeQuery();
+            
+            //Verificar se foi encontrado um registro
+            if(rs.first()){
+                //Faz Login
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
     }
 }
