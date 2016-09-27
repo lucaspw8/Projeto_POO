@@ -347,6 +347,8 @@ public class Servico_T extends javax.swing.JFrame {
     private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
         // Botão Excluir:
 
+        
+        if(!txt_Nome.getText().isEmpty() || !txt_preco.getText().isEmpty()){
         int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Serviço ?");
 
         if(resposta == JOptionPane.YES_OPTION){
@@ -366,6 +368,9 @@ public class Servico_T extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Erro Ao Excluir ! " +erro);
             }
         }
+        }
+         else
+            JOptionPane.showMessageDialog(null,"Selecione algum serviço");
     }//GEN-LAST:event_btn_ExcluirActionPerformed
 
     private void btn_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarActionPerformed
@@ -392,7 +397,7 @@ public class Servico_T extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"Algum Campo está vazio Tente de novo ! ");
+            JOptionPane.showMessageDialog(null,"Selecione o serviço para edita-lo! ");
         }
     }//GEN-LAST:event_btn_EditarActionPerformed
 

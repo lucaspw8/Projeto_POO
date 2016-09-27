@@ -396,12 +396,14 @@ public class Cliente extends javax.swing.JFrame {
 
     private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
         // Botão Excluir:
-        int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Cliente ?");
         
+       
+       if(!txt_Nome_cli.getText().isEmpty()){ 
+           int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Cliente ?");
        if(resposta == JOptionPane.YES_OPTION){
        try {
             //1º Guardar os dados do formulario em um obj Produto
-
+            
             ClienteDados cli= new ClienteDados();
             cli.setId_cliente(cod);
 
@@ -415,6 +417,9 @@ public class Cliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Erro Ao Excluir ! " +erro);
         }
         }
+       }
+        else
+            JOptionPane.showMessageDialog(null,"Selecione um Cliente antes ! ");
     }//GEN-LAST:event_btn_ExcluirActionPerformed
 
     private void btn_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarActionPerformed
@@ -443,7 +448,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"O Nome está vazio Tente de novo ! ");
+            JOptionPane.showMessageDialog(null,"Selecione um Cliente antes ! ");
         }
     }//GEN-LAST:event_btn_EditarActionPerformed
 

@@ -191,7 +191,15 @@ public class Produto_T extends javax.swing.JFrame {
             new String [] {
                 "Código", "Nome", "Preço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         Tabela_Prod.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Tabela_ProdMouseClicked(evt);
@@ -365,13 +373,14 @@ public class Produto_T extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"Algum Campo está vazio Tente de novo ! ");
+            JOptionPane.showMessageDialog(null,"Selecione o produto para edita-lo ! ");
         }
     }//GEN-LAST:event_btn_EditarActionPerformed
 
     private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
         // Botão Excluir:
         
+        if(!txt_Nome_prod.getText().isEmpty() || !txt_preco_prod.getText().isEmpty()){
         int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Produto ?");
         
        if(resposta == JOptionPane.YES_OPTION){
@@ -392,6 +401,9 @@ public class Produto_T extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Erro Ao Excluir ! " +erro);
             }
        }
+      }
+        else
+            JOptionPane.showMessageDialog(null,"Selecione algum produto");
     }//GEN-LAST:event_btn_ExcluirActionPerformed
 
     private void btn_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limparActionPerformed
