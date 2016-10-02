@@ -5,9 +5,8 @@
  */
 package Telas;
 
-import DAO.ClienteDAO;
-import DAO.ProdutoDAO;
-import JavaBeans.ClienteDados;
+import DAO.FlorDAO;
+import JavaBeans.Flor;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,29 +15,29 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Lucas
  */
-public class Cliente extends javax.swing.JFrame {
+public class Flor_Tela extends javax.swing.JFrame {
+    
     public int cod;
     
     //Metodo Listar
      public void Listar(){
         try {
             //1º Executar o Select
-            ClienteDAO dao = new ClienteDAO();
+            FlorDAO dao = new FlorDAO();
             
-            List<ClienteDados> listaCli = dao.ListarClientes();
+            List<Flor> listaFlo = dao.ListarFlores();
             
             //2ºColocar os dados na tabela
             
-            DefaultTableModel modelo = (DefaultTableModel)Tabela_Cliente.getModel();
+            DefaultTableModel modelo = (DefaultTableModel)Tabela_Flor.getModel();
             modelo.setNumRows(0);
             
-            for(ClienteDados cli : listaCli){
+            for(Flor f : listaFlo){
                 modelo.addRow(new Object[]{
-                    cli.getId_cliente(),
-                    cli.getNome(),
-                    cli.getEndereco(),
-                    cli.getTelefone(),
-                    cli.getEmail()
+                    f.getCod_flor(),
+                    f.getNome(),
+                    f.getQtd_flor(),
+                    
                     });
             }
             
@@ -49,9 +48,9 @@ public class Cliente extends javax.swing.JFrame {
     
     
     /**
-     * Creates new form Cliente
+     * Creates new form Flor_Tela
      */
-    public Cliente() {
+    public Flor_Tela() {
         initComponents();
     }
 
@@ -64,56 +63,47 @@ public class Cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         Painel_Cadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txt_Nome_cli = new javax.swing.JTextField();
-        txt_Endereco_cli = new javax.swing.JTextField();
-        btn_cadastrar_cli = new javax.swing.JButton();
+        txt_Nome_flor = new javax.swing.JTextField();
+        txt_qtd_flor = new javax.swing.JTextField();
+        btn_cadastrar_Flor = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btn_limpar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        txt_Telefone_cli = new javax.swing.JTextField();
-        txt_Email_cli = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        menu = new javax.swing.JLabel();
         Painel_Editar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela_Cliente = new javax.swing.JTable();
+        Tabela_Flor = new javax.swing.JTable();
         btn_Excluir = new javax.swing.JButton();
         btn_Editar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        menu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cliente");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Clientes");
-
         Painel_Cadastro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Cadastrar Cliente");
+        jLabel2.setText("Cadastrar Flores");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel3.setText("Nome");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel4.setText("Endereço");
+        jLabel4.setText("Quantidade");
 
-        btn_cadastrar_cli.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_cadastrar_cli.setText("Cadastrar");
-        btn_cadastrar_cli.addActionListener(new java.awt.event.ActionListener() {
+        btn_cadastrar_Flor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_cadastrar_Flor.setText("Cadastrar");
+        btn_cadastrar_Flor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadastrar_cliActionPerformed(evt);
+                btn_cadastrar_FlorActionPerformed(evt);
             }
         });
 
@@ -129,18 +119,6 @@ public class Cliente extends javax.swing.JFrame {
         btn_limpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_limparActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel6.setText("Telefone");
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel7.setText("Email");
-
-        txt_Telefone_cli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_Telefone_cliActionPerformed(evt);
             }
         });
 
@@ -160,24 +138,15 @@ public class Cliente extends javax.swing.JFrame {
                             .addGroup(Painel_CadastroLayout.createSequentialGroup()
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                                .addComponent(btn_cadastrar_cli))
-                            .addComponent(txt_Endereco_cli)
-                            .addComponent(txt_Nome_cli)))
+                                .addComponent(btn_cadastrar_Flor))
+                            .addComponent(txt_qtd_flor)
+                            .addComponent(txt_Nome_flor)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_CadastroLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_limpar))
                     .addGroup(Painel_CadastroLayout.createSequentialGroup()
                         .addGap(109, 109, 109)
-                        .addComponent(jLabel2))
-                    .addGroup(Painel_CadastroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(14, 14, 14)
-                        .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_Telefone_cli)
-                            .addComponent(txt_Email_cli))))
+                        .addComponent(jLabel2)))
                 .addContainerGap())
         );
         Painel_CadastroLayout.setVerticalGroup(
@@ -190,56 +159,60 @@ public class Cliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_Nome_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_Nome_flor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txt_Endereco_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txt_qtd_flor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txt_Telefone_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txt_Email_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(Painel_CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_cadastrar_cli)
+                    .addComponent(btn_cadastrar_Flor)
                     .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Flores");
+
+        menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        menu.setText("Menu");
+        menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuMouseClicked(evt);
+            }
+        });
 
         Painel_Editar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        Tabela_Cliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Tabela_Cliente.setModel(new javax.swing.table.DefaultTableModel(
+        Tabela_Flor.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        Tabela_Flor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "Endereço", "Telefone", "Email"
+                "Código", "Nome", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        Tabela_Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        Tabela_Flor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Tabela_Flor.getTableHeader().setReorderingAllowed(false);
+        Tabela_Flor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabela_ClienteMouseClicked(evt);
+                Tabela_FlorMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(Tabela_Cliente);
-        if (Tabela_Cliente.getColumnModel().getColumnCount() > 0) {
-            Tabela_Cliente.getColumnModel().getColumn(0).setPreferredWidth(15);
-            Tabela_Cliente.getColumnModel().getColumn(3).setPreferredWidth(40);
-            Tabela_Cliente.getColumnModel().getColumn(4).setPreferredWidth(180);
-            Tabela_Cliente.getColumnModel().getColumn(4).setMaxWidth(300);
+        jScrollPane1.setViewportView(Tabela_Flor);
+        if (Tabela_Flor.getColumnModel().getColumnCount() > 0) {
+            Tabela_Flor.getColumnModel().getColumn(0).setMinWidth(50);
+            Tabela_Flor.getColumnModel().getColumn(0).setMaxWidth(100);
         }
 
         btn_Excluir.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -260,7 +233,7 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Listagem de Clientes");
+        jLabel5.setText("Listagem de Flores");
 
         javax.swing.GroupLayout Painel_EditarLayout = new javax.swing.GroupLayout(Painel_Editar);
         Painel_Editar.setLayout(Painel_EditarLayout);
@@ -279,32 +252,19 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        Painel_EditarLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_Editar, btn_Excluir});
-
         Painel_EditarLayout.setVerticalGroup(
             Painel_EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Painel_EditarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Editar))
                 .addGap(92, 92, 92))
         );
-
-        Painel_EditarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_Editar, btn_Excluir});
-
-        menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        menu.setText("Menu");
-        menu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -342,24 +302,22 @@ public class Cliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cadastrar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrar_cliActionPerformed
+    private void btn_cadastrar_FlorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrar_FlorActionPerformed
 
         //Botão Cadastrar Produto
 
         //Verifica se algum campo esta vazio !
-        if(!txt_Nome_cli.getText().isEmpty()){
+        if(!txt_Nome_flor.getText().isEmpty() && !txt_qtd_flor.getText().isEmpty()){
             try {
                 //1º Guardar os dados do formulario em um obj Produto
 
-                ClienteDados cli= new ClienteDados();
-                cli.setNome(txt_Nome_cli.getText());
-                cli.setTelefone(txt_Telefone_cli.getText());
-                cli.setEndereco(txt_Endereco_cli.getText());
-                cli.setEmail(txt_Email_cli.getText());
+                Flor flor = new Flor();
+                flor.setNome(txt_Nome_flor.getText());
+                flor.setQtd_flor(Integer.parseInt(txt_qtd_flor.getText()));
 
-                //2º passo Criar um prod do tipo DAO
-                ClienteDAO dao = new ClienteDAO();
-                dao.CadastrarCliente(cli);
+                //2º passo Criar um flor do tipo DAO
+                FlorDAO dao = new FlorDAO();
+                dao.cadastrarFlor(flor);
 
                 JOptionPane.showMessageDialog(null,"Cadastro Realizado Com Sucesso");
 
@@ -368,9 +326,9 @@ public class Cliente extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"O Campo Nome está vazio Tente de novo ! ");
+            JOptionPane.showMessageDialog(null,"Os Campos não podem estar vazios Tente de novo ! ");
         }
-    }//GEN-LAST:event_btn_cadastrar_cliActionPerformed
+    }//GEN-LAST:event_btn_cadastrar_FlorActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
@@ -378,69 +336,72 @@ public class Cliente extends javax.swing.JFrame {
 
     private void btn_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limparActionPerformed
         // Limpar todos os campos
-        txt_Nome_cli.setText(null);
-        txt_Endereco_cli.setText(null);
-        txt_Telefone_cli.setText(null);
-        txt_Email_cli.setText(null);
-        cod= -1;
+        txt_Nome_flor.setText(null);
+        txt_qtd_flor.setText(null);
+       
+        
     }//GEN-LAST:event_btn_limparActionPerformed
 
-    private void Tabela_ClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_ClienteMouseClicked
+    private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
+        // TODO add your handling code here:
+        Menu e = new Menu();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuMouseClicked
+
+    private void Tabela_FlorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_FlorMouseClicked
         // Pegando dados
-        cod = Integer.parseInt(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 0).toString());
-         
-        txt_Nome_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 1).toString());
-        txt_Endereco_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 2).toString());
-        txt_Telefone_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 3).toString());
-        txt_Email_cli.setText(Tabela_Cliente.getValueAt(Tabela_Cliente.getSelectedRow(), 4).toString());
-    }//GEN-LAST:event_Tabela_ClienteMouseClicked
+        cod = Integer.parseInt(Tabela_Flor.getValueAt(Tabela_Flor.getSelectedRow(), 0).toString());
+
+        txt_Nome_flor.setText(Tabela_Flor.getValueAt(Tabela_Flor.getSelectedRow(), 1).toString());
+        txt_qtd_flor.setText(Tabela_Flor.getValueAt(Tabela_Flor.getSelectedRow(), 2).toString());
+        
+    }//GEN-LAST:event_Tabela_FlorMouseClicked
 
     private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
         // Botão Excluir:
-        
-       
-       if(!txt_Nome_cli.getText().isEmpty()){ 
-           int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Cliente ?");
-       if(resposta == JOptionPane.YES_OPTION){
-       try {
-            //1º Guardar os dados do formulario em um obj Produto
-            
-            ClienteDados cli= new ClienteDados();
-            cli.setId_cliente(cod);
 
-            //2º passo Criar um prod do tipo DAO
-            ClienteDAO dao = new ClienteDAO();
-            dao.ExcluirCliente(cli);
+        if(!txt_Nome_flor.getText().isEmpty()){
+            int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir esta Flor ?");
+            if(resposta == JOptionPane.YES_OPTION){
+                try {
+                    //1º Guardar os dados do formulario em um obj Produto
 
-            JOptionPane.showMessageDialog(null,"Excluido Com Sucesso");
+                    Flor flor= new Flor();
+                    flor.setCod_flor(cod);
 
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"Erro Ao Excluir ! " +erro);
+                    //2º passo Criar um prod do tipo DAO
+                   FlorDAO dao = new FlorDAO();
+                    dao.excluirFlor(flor);
+
+                    JOptionPane.showMessageDialog(null,"Excluido Com Sucesso");
+
+                } catch (Exception erro) {
+                    JOptionPane.showMessageDialog(null,"Erro Ao Excluir ! " +erro);
+                }
+            }
         }
-        }
-       }
         else
-            JOptionPane.showMessageDialog(null,"Selecione um Cliente antes ! ");
+        JOptionPane.showMessageDialog(null,"Selecione uma Flor antes ! ");
     }//GEN-LAST:event_btn_ExcluirActionPerformed
 
     private void btn_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarActionPerformed
         // Botão Editar:
-        
+
         //Verifica se algum campo esta vazio !
-        if(!txt_Nome_cli.getText().isEmpty()){
+        if(!txt_Nome_flor.getText().isEmpty()){
             try {
                 //1º Guardar os dados do formulario em um obj Produto
 
-                ClienteDados cli = new ClienteDados();
-                cli.setId_cliente(cod);
-                cli.setNome(txt_Nome_cli.getText());
-                cli.setEndereco(txt_Endereco_cli.getText());
-                cli.setEmail(txt_Email_cli.getText());
-                cli.setTelefone(txt_Telefone_cli.getText());
+                Flor f = new Flor();
+                f.setCod_flor(cod);
+                f.setNome(txt_Nome_flor.getText());
+                f.setQtd_flor(Integer.parseInt(txt_qtd_flor.getText()));
+                
 
                 //2º passo Criar um prod do tipo DAO
-                ClienteDAO dao = new ClienteDAO();
-                dao.EditarCliente(cli);
+                FlorDAO dao = new FlorDAO();
+                dao.editarFlor(f);
 
                 JOptionPane.showMessageDialog(null,"Alterado Com Sucesso");
 
@@ -453,21 +414,10 @@ public class Cliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_EditarActionPerformed
 
-    private void txt_Telefone_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Telefone_cliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_Telefone_cliActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Listar();
-       
-    }//GEN-LAST:event_formWindowActivated
-
-    private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
         // TODO add your handling code here:
-        Menu e = new Menu();
-        e.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuMouseClicked
+        Listar();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -486,20 +436,20 @@ public class Cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Flor_Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Flor_Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Flor_Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Flor_Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cliente().setVisible(true);
+                new Flor_Tela().setVisible(true);
             }
         });
     }
@@ -507,10 +457,10 @@ public class Cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel_Cadastro;
     private javax.swing.JPanel Painel_Editar;
-    private javax.swing.JTable Tabela_Cliente;
+    private javax.swing.JTable Tabela_Flor;
     private javax.swing.JButton btn_Editar;
     private javax.swing.JButton btn_Excluir;
-    private javax.swing.JButton btn_cadastrar_cli;
+    private javax.swing.JButton btn_cadastrar_Flor;
     private javax.swing.JButton btn_limpar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -518,13 +468,9 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel menu;
-    private javax.swing.JTextField txt_Email_cli;
-    private javax.swing.JTextField txt_Endereco_cli;
-    private javax.swing.JTextField txt_Nome_cli;
-    private javax.swing.JTextField txt_Telefone_cli;
+    private javax.swing.JTextField txt_Nome_flor;
+    private javax.swing.JTextField txt_qtd_flor;
     // End of variables declaration//GEN-END:variables
 }
