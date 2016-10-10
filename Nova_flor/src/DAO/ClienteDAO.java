@@ -79,6 +79,36 @@ public class ClienteDAO {
             throw new RuntimeException(erro);
         }
     }
+     //Listar os Clientes por nome
+      public List<ClienteDados> BuscarClientes(String nome){
+        try {
+            //1º passo Criar o vetor que vai armazenar os registros do banco
+            List<ClienteDados> lista = new ArrayList<ClienteDados>();
+            //2º Criar SQL
+            String sql = "select * from cliente where nome=?";
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setString(1,nome);
+            //3º Passo guardar o resultado dentro de um obj ResultSet
+            ResultSet rs = stmt.executeQuery();
+            
+            //4º Enqualto tiver resultado guardar no registro da lista
+            while (rs.next()) {
+                ClienteDados cli = new ClienteDados();
+                cli.setId_cliente(rs.getInt("cod_cliente"));
+                cli.setNome(rs.getString("nome"));
+                cli.setTelefone(rs.getString("telefone"));
+                cli.setEmail(rs.getString("email"));
+                cli.setEndereco(rs.getString("end"));
+                
+                lista.add(cli);
+            }
+            return lista;
+            
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+    }
      
      
      public  void EditarCliente(ClienteDados cli){

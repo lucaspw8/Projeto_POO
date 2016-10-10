@@ -44,6 +44,7 @@ public class CadastraADM extends javax.swing.JFrame {
         btn_cadastrar = new javax.swing.JButton();
 
         setTitle("Cadastro de Administrador");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -155,6 +156,7 @@ public class CadastraADM extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_loginActionPerformed

@@ -65,6 +65,7 @@ public class AdministradorDAO {
             //Verificar se foi encontrado um registro
             if(rs.first()){
                 //Faz Login
+                
                 return true;
             }
             

@@ -77,6 +77,35 @@ public class ProdutoDAO {
     }
     
     
+     public List<Produto> BuscarProdutos(String nome){
+        try {
+            //1º passo Criar o vetor que vai armazenar os registros do banco
+            List<Produto> lista = new ArrayList<Produto>();
+            //2º Criar SQL
+            String sql = "select * from produto where nome = ?";
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setString(1,nome);
+            
+            //3º Passo guardar o resultado dentro de um obj ResultSet
+            ResultSet rs = stmt.executeQuery();
+            
+            //4º Enqualto tiver resultado guardar no registro da lista
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setCod_prod(rs.getInt("cod_produto"));
+                p.setNome(rs.getString("nome"));
+                p.setPreco(rs.getFloat("preco"));
+                
+                lista.add(p);
+            }
+            return lista;
+            
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+    }
+    
     
      //Altera os produtos
     public  void AlterarProduto(Produto prod){
