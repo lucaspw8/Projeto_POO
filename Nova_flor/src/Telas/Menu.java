@@ -190,18 +190,21 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Cliente a = new Cliente();
         a.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_cadastrar_clienteActionPerformed
 
     private void btn_cadastrar_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrar_produtosActionPerformed
         // TODO add your handling code here:
         Produto_T b = new Produto_T();
         b.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_cadastrar_produtosActionPerformed
 
     private void btn_cadastrar_servicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrar_servicosActionPerformed
         // TODO add your handling code here:
         Servico_T c = new Servico_T();
         c.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_cadastrar_servicosActionPerformed
 
     private void btn_FloresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FloresActionPerformed

@@ -22,6 +22,37 @@ import javax.swing.table.DefaultTableModel;
 public class Pedido_tela extends javax.swing.JFrame {
    static int codProd,cod_Cli,codPedi;
 
+   //Buscar pedido
+   public void ListarPedidoNormal(){
+        // Buscar pedido por data
+            try {
+            //1º Executar o Select
+            PedidoDAO dao = new PedidoDAO();
+            
+            List<Pedido> listaPed = dao.ListarPedido();
+            
+            //2ºColocar os dados na tabela
+            
+            DefaultTableModel modelo = (DefaultTableModel)Tabela_Pedido.getModel();
+            modelo.setNumRows(0);
+            
+            for(Pedido ped : listaPed){
+                modelo.addRow(new Object[]{
+                    ped.getCod_pedido(),
+                    ped.getNomeCli(),
+                    ped.getNomeProd(),
+                    ped.getEndereco(),
+                    ped.getQtd_prod(),
+                    ped.getHora_entrega(),
+                    ped.getData_entrega()
+                    });
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro " +e );
+        }
+   }
+   
     //Metodo Listar
      public void ListarProduto(){
         try {
@@ -112,6 +143,9 @@ public class Pedido_tela extends javax.swing.JFrame {
         txtDataEntrega = new javax.swing.JFormattedTextField();
         txtHoraEntrega = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        btnExcluirPedido = new javax.swing.JButton();
+        btnEditarPedido = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -199,6 +233,45 @@ public class Pedido_tela extends javax.swing.JFrame {
             }
         });
 
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+
+        btnExcluirPedido.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnExcluirPedido.setText("Excluir");
+        btnExcluirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirPedidoActionPerformed(evt);
+            }
+        });
+
+        btnEditarPedido.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditarPedido.setText("Editar");
+        btnEditarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarPedidoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnExcluirPedido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(btnEditarPedido)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluirPedido)
+                    .addComponent(btnEditarPedido))
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -206,6 +279,7 @@ public class Pedido_tela extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -232,7 +306,7 @@ public class Pedido_tela extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(txt_Endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel6, jLabel7});
@@ -268,7 +342,9 @@ public class Pedido_tela extends javax.swing.JFrame {
                     .addComponent(txtHoraEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel6, jLabel7});
@@ -363,6 +439,10 @@ public class Pedido_tela extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(Tabela_Cliente);
+        if (Tabela_Cliente.getColumnModel().getColumnCount() > 0) {
+            Tabela_Cliente.getColumnModel().getColumn(0).setPreferredWidth(70);
+            Tabela_Cliente.getColumnModel().getColumn(0).setMaxWidth(70);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -372,7 +452,7 @@ public class Pedido_tela extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -411,6 +491,10 @@ public class Pedido_tela extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(Tabela_Prod);
+        if (Tabela_Prod.getColumnModel().getColumnCount() > 0) {
+            Tabela_Prod.getColumnModel().getColumn(0).setPreferredWidth(70);
+            Tabela_Prod.getColumnModel().getColumn(0).setMaxWidth(70);
+        }
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consulta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
@@ -462,7 +546,7 @@ public class Pedido_tela extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -535,11 +619,11 @@ public class Pedido_tela extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cliente", "Produto", "Endereço", "Quantidade", "Horario", "Data"
+                "Codigo", "Cliente", "Produto", "Endereço", "Quantidade", "Horario", "Data"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -554,8 +638,11 @@ public class Pedido_tela extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(Tabela_Pedido);
         if (Tabela_Pedido.getColumnModel().getColumnCount() > 0) {
-            Tabela_Pedido.getColumnModel().getColumn(3).setMinWidth(40);
-            Tabela_Pedido.getColumnModel().getColumn(3).setMaxWidth(80);
+            Tabela_Pedido.getColumnModel().getColumn(0).setPreferredWidth(70);
+            Tabela_Pedido.getColumnModel().getColumn(0).setMaxWidth(70);
+            Tabela_Pedido.getColumnModel().getColumn(3).setPreferredWidth(100);
+            Tabela_Pedido.getColumnModel().getColumn(4).setMinWidth(40);
+            Tabela_Pedido.getColumnModel().getColumn(4).setMaxWidth(80);
         }
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -565,7 +652,7 @@ public class Pedido_tela extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -582,6 +669,7 @@ public class Pedido_tela extends javax.swing.JFrame {
         jTabbedPane1.addTab("Pedidos", jPanel7);
 
         menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menu.setText("Menu");
         menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -640,6 +728,7 @@ public class Pedido_tela extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         ListarCliente();
         ListarProduto();
+        ListarPedidoNormal();
     }//GEN-LAST:event_formWindowActivated
 
     private void Tabela_ProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_ProdMouseClicked
@@ -761,7 +850,7 @@ public class Pedido_tela extends javax.swing.JFrame {
             //1º Executar o Select
             PedidoDAO dao = new PedidoDAO();
             
-            List<Pedido> listaPed = dao.ListarPedido(txtDataPedido.getText());
+            List<Pedido> listaPed = dao.ListarPedidoPorData(txtDataPedido.getText());
             
             //2ºColocar os dados na tabela
             
@@ -770,6 +859,7 @@ public class Pedido_tela extends javax.swing.JFrame {
             
             for(Pedido ped : listaPed){
                 modelo.addRow(new Object[]{
+                    ped.getCod_pedido(),
                     ped.getNomeCli(),
                     ped.getNomeProd(),
                     ped.getEndereco(),
@@ -785,7 +875,13 @@ public class Pedido_tela extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarPedidoActionPerformed
 
     private void Tabela_PedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_PedidoMouseClicked
-        // TODO add your handling code here:
+      codPedi = Integer.parseInt( Tabela_Pedido.getValueAt(Tabela_Pedido.getSelectedRow() , 0).toString());
+      txt_nome_cliente.setText( Tabela_Pedido.getValueAt(Tabela_Pedido.getSelectedRow(),1).toString());
+      txt_Produto.setText(Tabela_Pedido.getValueAt(Tabela_Pedido.getSelectedRow(),2).toString());
+      txt_Endereco.setText(Tabela_Pedido.getValueAt(Tabela_Pedido.getSelectedRow(),3).toString());
+      txt_Quantidade.setText(Tabela_Pedido.getValueAt(Tabela_Pedido.getSelectedRow(),4).toString());
+      txtHoraEntrega.setText(Tabela_Pedido.getValueAt(Tabela_Pedido.getSelectedRow(),5).toString());
+      txtDataEntrega.setText(Tabela_Pedido.getValueAt(Tabela_Pedido.getSelectedRow(),6).toString());
     }//GEN-LAST:event_Tabela_PedidoMouseClicked
 
     private void txtDataPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataPedidoActionPerformed
@@ -798,6 +894,49 @@ public class Pedido_tela extends javax.swing.JFrame {
         e.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuMouseClicked
+
+    private void btnExcluirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPedidoActionPerformed
+      int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir este Pedido ?");
+       if(resposta == JOptionPane.YES_OPTION){
+        try {
+            Pedido ped = new Pedido();
+            ped.setCod_pedido(codPedi);
+            
+            PedidoDAO dao = new PedidoDAO();
+            dao.ExcluirPedido(ped);
+            
+            JOptionPane.showMessageDialog(null,"Excluido Com Sucesso");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro ao Excluir! " +e);
+        }
+       }
+    }//GEN-LAST:event_btnExcluirPedidoActionPerformed
+
+    private void btnEditarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPedidoActionPerformed
+         //Botão Editar
+    if(!txt_nome_cliente.getText().isEmpty() && !txt_Endereco.getText().isEmpty() && !txt_Produto.getText().isEmpty() && !txt_Quantidade.getText().isEmpty()){
+        try {
+            Pedido ped = new Pedido();
+        
+            ped.setEndereco(txt_Endereco.getText());
+            ped.setQtd_prod(Integer.parseInt( txt_Quantidade.getText()));
+            
+            
+            ped.setData_entrega(txtDataEntrega.getText());
+            ped.setHora_entrega(txtHoraEntrega.getText());
+            ped.setCod_pedido(codPedi);
+            
+            PedidoDAO dao = new PedidoDAO();
+            dao.EditarPedido(ped);
+            
+            JOptionPane.showMessageDialog(null,"Cadastro Realizado Com Sucesso");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro ao cadastrar! " +e);
+        }
+    }else{
+        JOptionPane.showMessageDialog(null,"Verifique os dados");
+    }
+    }//GEN-LAST:event_btnEditarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -842,6 +981,8 @@ public class Pedido_tela extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarPedido;
     private javax.swing.JButton btnBuscarProduto;
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnEditarPedido;
+    private javax.swing.JButton btnExcluirPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -860,6 +1001,7 @@ public class Pedido_tela extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

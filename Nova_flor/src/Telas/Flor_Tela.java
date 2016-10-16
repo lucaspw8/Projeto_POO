@@ -177,6 +177,7 @@ public class Flor_Tela extends javax.swing.JFrame {
         jLabel1.setText("Flores");
 
         menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menu.setText("Menu");
         menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

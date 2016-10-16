@@ -13,7 +13,7 @@ import java.sql.Time;
  * @author Lucas
  */
 public class Pedido {
-    private static int cod_pedido,cod_cliente,qtd_prod,prod_cod;
+    private int cod_pedido,cod_cliente,qtd_prod,prod_cod;
     private String endereco;
     private String nomeCli,nomeProd;
     private String data_entrega;
@@ -40,12 +40,12 @@ public class Pedido {
     }
     
     
-    public static int getProd_cod() {
+    public  int getProd_cod() {
         return prod_cod;
     }
 
-    public static void setProd_cod(int prod_cod) {
-        Pedido.prod_cod = prod_cod;
+    public void setProd_cod(int prod_cod) {
+        prod_cod = prod_cod;
     }
     
     public void setCod_pedido(int cod_pedido) {

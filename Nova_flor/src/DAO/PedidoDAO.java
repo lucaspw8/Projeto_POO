@@ -49,12 +49,59 @@ public class PedidoDAO {
         }
     }
     
-    public List<Pedido> ListarPedido(String data){
+    
+    public void EditarPedido(Pedido pedi){
+        try {
+            // 1º passo Criar a SQL
+            String comando = "update pedido set  end_entrega =?,data =?, hora =?, Qtd_prod =? where cod_pedido = ?";
+            //2º passo organizar o comando e executa-lo
+            PreparedStatement stmt = conecta.prepareStatement(comando);
+            
+            
+           
+            stmt.setString(1,pedi.getEndereco());
+            stmt.setString(2,pedi.getData_entrega());
+            stmt.setString(3,pedi.getHora_entrega());
+            stmt.setInt(4,pedi.getQtd_prod());
+            stmt.setInt(5, pedi.getCod_pedido());
+            
+            //3º Executa comando 
+            stmt.execute();
+            //4º Fecha conexao
+            stmt.close();
+            
+        } catch(SQLException erro){
+            throw new RuntimeException(erro);
+        }
+    }
+    
+    public void ExcluirPedido(Pedido pedi){
+        try {
+            // 1º passo Criar a SQL
+            String comando = "delete from pedido where cod_pedido = ?";
+            //2º passo organizar o comando e executa-lo
+            PreparedStatement stmt = conecta.prepareStatement(comando);
+            
+            
+           
+            stmt.setInt(1, pedi.getCod_pedido());
+            
+            //3º Executa comando 
+            stmt.execute();
+            //4º Fecha conexao
+            stmt.close();
+            
+        } catch(SQLException erro){
+            throw new RuntimeException(erro);
+        }
+    }
+    
+    public List<Pedido> ListarPedidoPorData(String data){
         try {
             //1º passo Criar o vetor que vai armazenar os registros do banco
             List<Pedido> lista = new ArrayList<Pedido>();
             //2º Criar SQL
-            String sql = "select cli.nome as nomeCli,prod.nome as nomeProd,end_entrega,Qtd_prod as qtd,hora,data from pedido p,produto prod, cliente cli where p.data =? and p.cod_cliente=cli.cod_cliente and p.produto_cod=prod.cod_produto";
+            String sql = "select p.cod_pedido, cli.nome as nomeCli,prod.nome as nomeProd,end_entrega,Qtd_prod as qtd,hora,data from pedido p,produto prod, cliente cli where p.data =? and p.cod_cliente=cli.cod_cliente and p.produto_cod=prod.cod_produto";
             
             PreparedStatement stmt = conecta.prepareStatement(sql);
             stmt.setString(1, data);
@@ -64,6 +111,39 @@ public class PedidoDAO {
             //4º Enqualto tiver resultado guardar no registro da lista
             while (rs.next()) {
                 Pedido ped = new Pedido();
+                ped.setCod_pedido(rs.getInt("cod_pedido"));
+                ped.setNomeCli(rs.getString("nomeCli"));
+                ped.setNomeProd(rs.getString("nomeProd"));
+                ped.setEndereco(rs.getString("end_entrega"));
+                ped.setQtd_prod(rs.getInt("qtd"));
+                ped.setHora_entrega(rs.getString("hora"));
+                ped.setData_entrega(rs.getString("data"));
+                
+                lista.add(ped);
+            }
+            return lista;
+            
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+    }
+    
+    public List<Pedido> ListarPedido(){
+        try {
+            //1º passo Criar o vetor que vai armazenar os registros do banco
+            List<Pedido> lista = new ArrayList<Pedido>();
+            //2º Criar SQL
+            String sql = "select p.cod_pedido, cli.nome as nomeCli,prod.nome as nomeProd,end_entrega,Qtd_prod as qtd,hora,data from pedido p,produto prod, cliente cli where  p.cod_cliente=cli.cod_cliente and p.produto_cod=prod.cod_produto";
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            //3º Passo guardar o resultado dentro de um obj ResultSet
+            ResultSet rs = stmt.executeQuery();
+            
+            //4º Enqualto tiver resultado guardar no registro da lista
+            while (rs.next()) {
+                Pedido ped = new Pedido();
+                ped.setCod_pedido(rs.getInt("cod_pedido"));
                 ped.setNomeCli(rs.getString("nomeCli"));
                 ped.setNomeProd(rs.getString("nomeProd"));
                 ped.setEndereco(rs.getString("end_entrega"));

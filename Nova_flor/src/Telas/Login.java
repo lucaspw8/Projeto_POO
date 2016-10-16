@@ -125,6 +125,7 @@ public class Login extends javax.swing.JFrame {
 
         Login_1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txt_Login, txt_Senha});
 
+        lbl_cadastrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbl_cadastrar.setText("Cadastrar");
         lbl_cadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -149,8 +150,8 @@ public class Login extends javax.swing.JFrame {
                 .addGap(106, 106, 106)
                 .addComponent(Login_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbl_cadastrar)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addComponent(lbl_cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         pack();

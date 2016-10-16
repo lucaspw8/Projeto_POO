@@ -256,6 +256,7 @@ public class Produto_T extends javax.swing.JFrame {
         Painel_EditarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_Editar, btn_Excluir});
 
         menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menu.setText("Menu");
         menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
